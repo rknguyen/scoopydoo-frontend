@@ -12,7 +12,7 @@
           <h1>{{ collapsed ? 'SBD' : 'Scoobydoo' }}</h1>
         </a>
       </div>
-      <a-menu theme="dark" mode="inline" :defaultSelectedKeys="[$route.path]">
+      <a-menu theme="light" mode="inline" :defaultSelectedKeys="[$route.path]">
         <a-menu-item key="/">
           <router-link to="/">
             <a-icon type="home" />
@@ -91,7 +91,8 @@
           <a-icon type="logout" />&nbsp;Logout
         </a>
         <a class="user-link" disabled>
-          <a-icon type="user" /> {{ passport.fullName }}
+          {{ passport.fullName }}
+          <a-icon type="check-circle" theme="filled" :style="{ color: '#1890ff' }" />
         </a>
       </a-layout-header>
 
@@ -99,9 +100,7 @@
         <router-view />
       </a-layout-content>
 
-      <a-layout-footer style="text-align: center"
-        >Scoobydoo ©2020 by RK Nguyen.</a-layout-footer
-      >
+      <a-layout-footer style="text-align: center">Scoobydoo ©2020 by RK Nguyen.</a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
@@ -126,6 +125,18 @@ export default class Main extends Vue {
 </script>
 
 <style>
+.ant-layout-sider {
+  background-color: #fff;
+  box-shadow: none !important;
+  border-right-style: solid;
+  border-right-color: #d9d9d9;
+  border-right-width: 1px;
+}
+
+.ant-menu-inline {
+  border-right: none !important;
+}
+
 .ant-menu-item:first-child {
   margin-top: 0 !important;
 }
@@ -160,14 +171,18 @@ a.user-link:hover {
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: #002140;
+  background: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+
+  /* border-bottom-style: solid;
+  border-bottom-color: #d9d9d9;
+  border-bottom-width: 1px; */
 }
 
 #main .logo h1 {
   display: inline-block;
-  color: #fff;
+  color: #1890ff;
   font-size: 20px;
   margin: 0 0 0 0px;
   font-weight: 600;

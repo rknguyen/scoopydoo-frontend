@@ -5,11 +5,7 @@
         <a-card>
           <h1 class="candidate-name">
             {{ candidate.name }}
-            <a-icon
-              @click="onClickDeleteCandidate"
-              class="remover"
-              type="close"
-            />
+            <a-icon @click="onClickDeleteCandidate" class="remover" type="close" />
           </h1>
           <h4>
             <a :href="'mailto:' + candidate.email">{{ candidate.email }}</a>
@@ -32,8 +28,7 @@
                     @click="updateProcessClick"
                     v-if="candidate.process"
                     :color="candidate.process.color"
-                    >{{ candidate.process.name }}</a-tag
-                  >
+                  >{{ candidate.process.name }}</a-tag>
                   <a-tag @click="updateProcessClick" v-else>Unprovided</a-tag>
                 </a-col>
               </a-row>
@@ -50,8 +45,7 @@
                     @click="updateStatusClick"
                     v-if="candidate.status"
                     :color="candidate.status.color"
-                    >{{ candidate.status.name }}</a-tag
-                  >
+                  >{{ candidate.status.name }}</a-tag>
                   <a-tag @click="updateStatusClick" v-else>Unprovided</a-tag>
                 </a-col>
               </a-row>
@@ -90,16 +84,15 @@
                 </a-col>
                 <a-col :span="12">
                   <div class="editor-area">
-                    <span v-if="candidate.scheduledTime">{{
+                    <span v-if="candidate.scheduledTime">
+                      {{
                       moment(candidate.scheduledTime).format(
-                        'DD/MM/YYYY HH:mm:ss'
+                      'DD/MM/YYYY HH:mm:ss'
                       )
-                    }}</span>
+                      }}
+                    </span>
                     <span v-else>Not scheduled</span>
-                    <span
-                      @click="onClickEditSchedule(candidate)"
-                      class="editor-pen"
-                    >
+                    <span @click="onClickEditSchedule(candidate)" class="editor-pen">
                       <a-icon type="edit" />
                     </span>
                   </div>
@@ -125,8 +118,7 @@
                     v-if="candidate.role"
                     color="pink"
                     @click="updateRoleClick"
-                    >{{ candidate.role.name }}</a-tag
-                  >
+                  >{{ candidate.role.name }}</a-tag>
                   <a-tag @click="updateRoleClick" v-else>Unprovided</a-tag>
                 </a-col>
               </a-row>
@@ -143,8 +135,7 @@
                     v-if="candidate.type"
                     :color="candidate.type.color"
                     @click="updateTypeClick"
-                    >{{ candidate.type.name }}</a-tag
-                  >
+                  >{{ candidate.type.name }}</a-tag>
                   <a-tag @click="updateTypeClick" v-else>Unprovided</a-tag>
                 </a-col>
               </a-row>
@@ -161,8 +152,7 @@
                     v-if="candidate.source"
                     :color="candidate.source.color"
                     @click="updateSourceClick"
-                    >{{ candidate.source.name }}</a-tag
-                  >
+                  >{{ candidate.source.name }}</a-tag>
                   <a-tag @click="updateSourceClick" v-else>Unprovided</a-tag>
                 </a-col>
               </a-row>
@@ -174,23 +164,24 @@
         <a-card title="History">
           <div class="history-list">
             <a-timeline>
-              <a-timeline-item
-                v-for="action in candidate.history"
-                :key="action._id"
-              >
-                <h4>
-                  {{ action.actor.fullName }}
-                  <small>{{ moment(action.createdAt).fromNow() }}</small>
-                </h4>
-                <h6>
-                  <i>{{ ACTION_TYPE_TO_MSG[action.actionType] }}</i>
-                </h6>
-                <h5>{{ action.comment }}</h5>
-              </a-timeline-item>
-              <a-timeline-item>
-                <small>{{ moment(candidate.createdAt).fromNow() }}</small>
-                <h4>Created candidate profile</h4>
-              </a-timeline-item>
+              <div style="padding-top: 5px;">
+                <a-timeline-item v-for="action in candidate.history" :key="action._id">
+                  <h4>
+                    {{ action.actor.fullName }}
+                    <a-icon type="check-circle" theme="filled" :style="{ color: '#1890ff' }" />
+
+                    <!-- <small>{{ moment(action.createdAt).fromNow() }}</small> -->
+                  </h4>
+                  <h6>
+                    <i>{{ ACTION_TYPE_TO_MSG[action.actionType] }}</i>
+                  </h6>
+                  <h5>{{ action.comment }}</h5>
+                </a-timeline-item>
+                <a-timeline-item>
+                  <small>{{ moment(candidate.createdAt).fromNow() }}</small>
+                  <h4>Created candidate profile</h4>
+                </a-timeline-item>
+              </div>
             </a-timeline>
           </div>
         </a-card>
@@ -212,15 +203,11 @@
                 v-for="process in processList"
                 :key="process._id"
                 :value="process._id"
-                >{{ process.name }}</a-select-option
-              >
+              >{{ process.name }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateProcessComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateProcessComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -228,8 +215,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -250,15 +236,11 @@
                 v-for="status in statusList"
                 :key="status._id"
                 :value="status._id"
-                >{{ status.name }}</a-select-option
-              >
+              >{{ status.name }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateStatusComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateStatusComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -266,8 +248,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -288,15 +269,11 @@
                 v-for="role in roleList"
                 :key="role._id"
                 :value="role._id"
-                >{{ role.name }}</a-select-option
-              >
+              >{{ role.name }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateRoleComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateRoleComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -304,8 +281,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -326,15 +302,11 @@
                 v-for="type in typeList"
                 :key="type._id"
                 :value="type._id"
-                >{{ type.name }}</a-select-option
-              >
+              >{{ type.name }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateTypeComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateTypeComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -342,8 +314,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -364,15 +335,11 @@
                 v-for="source in sourceList"
                 :key="source._id"
                 :value="source._id"
-                >{{ source.name }}</a-select-option
-              >
+              >{{ source.name }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateSourceComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateSourceComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -380,8 +347,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -400,10 +366,7 @@
             <a-input v-model="updateBTSId" placeholder="New BTS ID here" />
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateBTSComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateBTSComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -411,8 +374,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
@@ -436,10 +398,7 @@
             />
           </a-form-item>
           <a-form-item label="Note">
-            <a-textarea
-              v-model="updateScheduleComment"
-              placeholder="Leave the note here"
-            ></a-textarea>
+            <a-textarea v-model="updateScheduleComment" placeholder="Leave the note here"></a-textarea>
           </a-form-item>
           <a-form-item>
             <a-button
@@ -449,8 +408,7 @@
               type="primary"
               html-type="submit"
               block
-              >Update</a-button
-            >
+            >Update</a-button>
           </a-form-item>
         </a-form>
       </a-spin>
